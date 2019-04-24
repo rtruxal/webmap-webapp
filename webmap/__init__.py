@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, redirect, url_for, render_template
 from flask_graphql import GraphQLView
 import secrets
-from .graph import schema
+
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -27,10 +27,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    from .graph import schema
     app.add_url_rule('/graphql', view_func=GraphQLView.as_view(
         'graphql',
         schema=schema,
         graphiql=True
         )
     )
+
+    from . import __main as main
+    app.register_blueprint(main.bp)
+    
     return app

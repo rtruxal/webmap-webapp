@@ -1,8 +1,8 @@
 import socket
-import pyquery
+# import pyquery
 import re
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
-from .local import TLDs
+from .local import TLD_LIST
 
 bp = Blueprint('/webmap', __name__, 'webmap')
 
@@ -12,7 +12,7 @@ bp = Blueprint('/webmap', __name__, 'webmap')
 def webmap():
     if request.method == 'POST':
         pass
-    return render_template('webmapp/index.html')
+    return render_template('viz.html')
 
 
 def get_simple_domainname(url_string) -> str:
@@ -46,7 +46,7 @@ class HandleInput:
         Finds the longest matching TLD.
         If there is a match, return True."""
         res = ''
-        for tld in TLDs:
+        for tld in TLD_LIST:
             if strang.strip('/').endswith(tld) and len(tld) > len(res):
                 res = tld
         return True if not res == '' else False
@@ -79,11 +79,12 @@ def nslookups(urls):
 
 
 if __name__ == "__main__":
-    x = [
-        'https://google.com',
-        '123.0.0.1',
-        'https://google.com/',
-        '999.999.999.999',
-    ]
-    for i in x:
-        print(HandleInput.handle(i))
+    # x = [
+    #     'https://google.com',
+    #     '123.0.0.1',
+    #     'https://google.com/',
+    #     '999.999.999.999',
+    # ]
+    # for i in x:
+    #     print(HandleInput.handle(i))
+    pass
