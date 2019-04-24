@@ -22,13 +22,19 @@ When it's complete, this repo will contain an interactive webapp that maps websi
 Glad you asked. Here's a diagram:  
 <kbd>
 ![Slide1](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide1.PNG)
-
-![Slide2](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide2.PNG)  
-
-![Slide3](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide3.PNG)  
-
-![Slide4](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide4.PNG)  
-
-![Slide5](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide5.PNG)  
 </kbd>
+<kbd>
+![Slide2](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide2.PNG)  
+</kbd>
+<kbd>
+![Slide3](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide3.PNG)  
+</kbd>
+<kbd>
+![Slide4](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide4.PNG)  
+</kbd>
+<kbd>
+![Slide5](https://github.com/rtruxal/github-pics/raw/master/webmap%20slides/Slide5.PNG)  
+</kbd>  
 
+
+### fin.
