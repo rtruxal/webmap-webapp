@@ -15,19 +15,21 @@ def webmap():
     return render_template('viz.html')
 
 
-def get_simple_domainname(url_string) -> str:
-    """Uses regex grouping substitution."""
-    hypertext_prefix_stripper = r'(^https?:\/\/)(www\.)?([^\/]*)(.*)$'
-    simple_dn = re.sub(hypertext_prefix_stripper, r'\3', url_string)
-    return simple_dn
+
 
 class HandleInput:
     ip_regex = r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
-    
     # operation_map = {
     #     'ip' : nslookup,
     #     'url' : 
     # }
+    
+    @staticmethod
+    def get_simple_domainname(url_string) -> str:
+        """Uses regex grouping substitution."""
+        hypertext_prefix_stripper = r'(^https?:\/\/)(www\.)?([^\/]*)(.*)$'
+        simple_dn = re.sub(hypertext_prefix_stripper, r'\3', url_string)
+        return simple_dn
     
     @classmethod
     def _is_ip(cls, strang):

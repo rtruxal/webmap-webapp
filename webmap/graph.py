@@ -17,7 +17,6 @@ graph = Graph(
     password=NEO4J_PASSWORD,
 )
 
-
 class BaseModel(GraphObject):
     """
     Implements some basic functions to guarantee some standard functionality
