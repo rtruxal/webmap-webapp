@@ -8,7 +8,7 @@ import graphene
 NEO4J_HOST = 'localhost'
 NEO4J_PORT = 7687
 NEO4J_USER = 'neo4j'
-NEO4J_PASSWORD = 'P@ssw0rd1!'
+NEO4J_PASSWORD = 'admin'
 
 graph = Graph(
     host=NEO4J_HOST,
