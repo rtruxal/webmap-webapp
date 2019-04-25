@@ -3,7 +3,7 @@ import re
 import secrets
 import socket
 import requests
-from typing import Generator
+from typing import Generator, Dict, List, Set
 
 from webmap.local import TLD_LIST
 
@@ -14,11 +14,11 @@ def get_simple_domainname(url_string) -> str:
         simple_dn = re.sub(hypertext_prefix_stripper, r'\3', url_string)
         return simple_dn
 
-def nslookup(url) -> Generator:
+def nslookup(url) -> Generator[str]:
     return (i[-1][0] for i in socket.getaddrinfo(url, 80))
 
 
-def nslookups(urls) -> dict:
+def nslookups(urls) -> Dict[str, Generator[str]]:
     return dict((k, (i[-1][0] for i in socket.getaddrinfo(k, 80))) for k in urls)
 
 class HandleInput:
@@ -85,7 +85,6 @@ class Bing:
     "count" : "50",
     }
 
-
     @classmethod
     def _call_api(cls, ip_addr) -> requests.Response:
         """inject an IP address into a query and call bing"""
@@ -95,7 +94,7 @@ class Bing:
         return sesh.get(cls.ENDPOINT)
 
     @staticmethod
-    def _get_links_from_resp(response) -> list:
+    def _get_links_from_resp(response) -> List[str]:
         """extracts a list of URLs from a bing JSON response"""
         try:
             return [i['url'] for i in response.json()['webPages']['value']]
@@ -106,7 +105,7 @@ class Bing:
             return []
 
     @classmethod
-    def get_websites(cls, ip_addrs) -> dict:
+    def get_websites(cls, ip_addrs) -> Dict[str, Set[str]]:
         """executes previous 2 functions."""
         sites = dict()
         for addr in ip_addrs:
