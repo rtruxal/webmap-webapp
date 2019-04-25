@@ -9,11 +9,12 @@ When it's complete, this repo will contain an interactive webapp that maps websi
 
 ## Requirements:
  - python 3.7, with:
-   - Flask
-   - graphene
-   - py2neo
-   - flask_graphql
- - neo4j installed & running on bolt://localhost:\<someport>
+   - `flask`
+   - `requests`
+   - `graphene`
+   - `py2neo`
+   - `flask_graphql`
+ - neo4j installed & running on `bolt://localhost:<someport>`
  - a browser  
 
 
