@@ -6,40 +6,85 @@
                 width: 900px;
                 height: 700px;
             }
-        </style>
 
-    </head>
-    <body>
-        <div class="container" onload="draw()">
+        </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/viz.css') }}">
+        <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
+        </head>
+            <script>
+                    function draw() {
+                        var config = {
+                            container_id: "viz",
+                            server_url: "bolt://localhost:7687",
+                            server_user: "neo4j",
+                            server_password: "P@ssw0rd1!",
+                            labels: {
+                                "URL": {
+                                    caption: "domain",
+                                    // size: "pagerank",
+                                    // community: "community"
+                                },
+                                "IP": {
+                                    caption: "addr"
+                                }
+                            },
+                            relationships: {
+                                "POINTS_TO": {
+                                    caption: false,
+                                    thickness: "count"
+                                }
+                            },
+                            initial_cypher: "MATCH p=()-[r:POINTS_TO]->() RETURN p"
+                        }
+                        var viz = new NeoVis.default(config);
+                        viz.render();
+                    }
+                </script>
+    <body onload="draw()">
+        <div class="container" id="vizcontainer">
             <div id="viz"></div>
         </div>
-
-        <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
-        <script>
-            function draw() {
-                var config = {
-                    container_id: "viz",
-                    server_url: "bolt://localhost:7687",
-                    server_user: "neo4j",
-                    server_password: "P@ssw0rd1!",
-                    labels: {
-                        "URL": {
-                            caption: "user_key",
-                            size: "pagerank",
-                            community: "community"
-                        }
-                    },
-                    relationships: {
-                        "POINTS_TO": {
-                            caption: false,
-                            thickness: "count"
-                        }
-                    },
-                    initial_cypher: "MATCH p=()-[r:POINTS_TO]->() RETURN p"
-                }
-                var viz = new NeoVis.default(config);
-                viz.render();
-            }
-        </script>
+        <div class="container" id="mainForm">
+            <form id="domainOrIPForm"action="#" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <label for="domainOrIP">Starting Domain or IP Address</label>
+                    <input name="domainOrIP" type="text" class="form-control" id="domainOrIP" aria-describedby="domainOrIPHelp" placeholder="example.com">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}                    
+                    <small id="undertext" class="form-text text-muted">
+                        {% for message in messages %} 
+                        {{ message }} 
+                        {% endfor %}
+                    </small>
+                    {% else %}
+                    <small id="domainOrIPHelp" class="form-text text-muted">Enter a domain or an IP address to get started.</small>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <button type="sumbit" class="btn btn-primary">Go</button>
+            </form>
+        </div>
+        <div class="container" id="mainResult">
+            {% if new_data %}
+            <table>
+                <tr>
+                {% if input_type == 'ip' %}
+                    <th>IP Addr</th>
+                    <th>Other URLs using this IP</th>
+                {% else %}
+                    <th>URL</th>
+                    <th>IPs associated to this URL</th>
+                {% endif %}                
+                </tr>
+                <tr>
+                {% for k,v in new_data.items() %}
+                    <th>{{ k }}</th>
+                    <th>{{ v }}</th> 
+                {% endfor %}
+                {% endif %}
+                </tr>
+            </table>
+        </div>
     </body>
 </html>
