@@ -4,7 +4,7 @@ from .core import HandleInput, OPERATION_MAP, ValidationError
 bp = Blueprint('/webmap', __name__, 'webmap')
 
 
-
+#TODO: Format dashboard HTML page layout.
 
 @bp.route('/', methods=('GET', 'POST'))
 def webmap():
