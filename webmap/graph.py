@@ -3,6 +3,10 @@ from py2neo.ogm import GraphObject, Property, RelatedTo
 from graphql import GraphQLError
 import graphene
 
+#TODO: Modify classes subclassing py2neo objects to enable better reading and writing
+#TODO: Create stored procedures (format strings ok due to schema conformance restrictions)
+
+
 # this has been a very interesting experience.
 
 NEO4J_HOST = 'localhost'
