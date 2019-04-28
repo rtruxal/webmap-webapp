@@ -70,6 +70,7 @@ class URL(BaseModel):
 
     name = Property()
     domain = Property()
+    datestamp = Property()
 
     ips = RelatedTo('IP', 'POINTS_TO')
 
@@ -83,20 +84,25 @@ class URL(BaseModel):
         return {
             'domain' : self.domain,
             'name' : self.name,
-            'ips' : self.ips
+            'datestamp' self.datestamp,
+            'ips' : self.ips,
         }
 
-    def __add_link(self, addr):
+    def __add_link(self, addr, datestamp=None):
         ip = IP(addr=addr).fetch()
-        self.ips.add(ip)        
+        self.ips.add(ip)
+        if datestamp is not None:
+            self.datestamp.add(datestamp)
 
-    def associate_ip(self, addr):
+
+    def associate_ip(self, addr, datestamp=None):
         #THIS MAY BE TOO SIMPLE.
-        self.__add_link(addr)
+        self.__add_link(addr, datestamp)
 
 class URLSchema(graphene.ObjectType):
     name = graphene.String()
     domain = graphene.String()
+    datestamp = graphene.DateTime()
     # crawl_date = graphene.DateTime()
     ips = graphene.List(IPSchema)
 
@@ -113,6 +119,7 @@ class CreateURL(graphene.Mutation):
     class Arguments:
         domain = graphene.String(required=True)
         name = graphene.String()
+        datestamp = graphene.DateTime()
     success = graphene.Boolean()
     url = graphene.Field(lambda: URLSchema)
 
@@ -124,6 +131,7 @@ class CreateURL(graphene.Mutation):
 class CreateIP(graphene.Mutation):
     class Arguments:
         addr = graphene.String(required=True)
+        datestamp = graphene.DateTime()
     success = graphene.Boolean()
     ip = graphene.Field(lambda: IPSchema)
 
@@ -136,6 +144,7 @@ class ConnectURLtoIP(graphene.Mutation):
     class Arguments:
         domain = graphene.String(required=True)
         addr = graphene.String(required=True)
+        datestamp = graphene.DateTime()
     success = graphene.Boolean()
     url = graphene.Field(lambda: URLSchema)
     ip = graphene.Field(lambda: IPSchema)
