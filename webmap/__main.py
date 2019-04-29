@@ -29,6 +29,7 @@ def webmap():
     return render_template('viz.html')
 
 
+
 if __name__ == "__main__":
     # x = [
     #     'https://google.com',

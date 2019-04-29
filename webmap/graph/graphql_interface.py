@@ -8,6 +8,7 @@ import graphene
 
 
 # this has been a very interesting experience.
+# 2019-04-28: however it was overambitious. Replacing with simple py2neo objects.
 
 NEO4J_HOST = 'localhost'
 NEO4J_PORT = 7687
@@ -70,7 +71,7 @@ class URL(BaseModel):
 
     name = Property()
     domain = Property()
-    datestamp = Property()
+    # datestamp = Property()
 
     ips = RelatedTo('IP', 'POINTS_TO')
 
@@ -84,15 +85,15 @@ class URL(BaseModel):
         return {
             'domain' : self.domain,
             'name' : self.name,
-            'datestamp' self.datestamp,
+            # 'datestamp' self.datestamp,
             'ips' : self.ips,
         }
 
     def __add_link(self, addr, datestamp=None):
         ip = IP(addr=addr).fetch()
         self.ips.add(ip)
-        if datestamp is not None:
-            self.datestamp.add(datestamp)
+        # if datestamp is not None:
+            # self.datestamp.add(datestamp)
 
 
     def associate_ip(self, addr, datestamp=None):
@@ -102,7 +103,7 @@ class URL(BaseModel):
 class URLSchema(graphene.ObjectType):
     name = graphene.String()
     domain = graphene.String()
-    datestamp = graphene.DateTime()
+    # datestamp = graphene.DateTime()
     # crawl_date = graphene.DateTime()
     ips = graphene.List(IPSchema)
 
@@ -119,7 +120,7 @@ class CreateURL(graphene.Mutation):
     class Arguments:
         domain = graphene.String(required=True)
         name = graphene.String()
-        datestamp = graphene.DateTime()
+        # datestamp = graphene.DateTime()
     success = graphene.Boolean()
     url = graphene.Field(lambda: URLSchema)
 
@@ -131,7 +132,7 @@ class CreateURL(graphene.Mutation):
 class CreateIP(graphene.Mutation):
     class Arguments:
         addr = graphene.String(required=True)
-        datestamp = graphene.DateTime()
+        # datestamp = graphene.DateTime()
     success = graphene.Boolean()
     ip = graphene.Field(lambda: IPSchema)
 
@@ -144,7 +145,7 @@ class ConnectURLtoIP(graphene.Mutation):
     class Arguments:
         domain = graphene.String(required=True)
         addr = graphene.String(required=True)
-        datestamp = graphene.DateTime()
+        # datestamp = graphene.DateTime()
     success = graphene.Boolean()
     url = graphene.Field(lambda: URLSchema)
     ip = graphene.Field(lambda: IPSchema)
