@@ -18,10 +18,10 @@
                             container_id: "viz",
                             server_url: "bolt://localhost:7687",
                             server_user: "neo4j",
-                            server_password: "P@ssw0rd1!",
+                            server_password: "admin",
                             labels: {
                                 "URL": {
-                                    caption: "domain",
+                                    caption: "path",
                                     // size: "pagerank",
                                     // community: "community"
                                 },
@@ -30,12 +30,12 @@
                                 }
                             },
                             relationships: {
-                                "POINTS_TO": {
+                                "POINTSAT": {
                                     caption: false,
                                     thickness: "count"
                                 }
                             },
-                            initial_cypher: "MATCH p=()-[r:POINTS_TO]->() RETURN p"
+                            initial_cypher: "MATCH p=()-[r:POINTSAT]->() RETURN p"
                         }
                         var viz = new NeoVis.default(config);
                         viz.render();

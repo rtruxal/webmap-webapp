@@ -6,17 +6,13 @@ import requests
 
 
 from webmap.local import TLD_LIST
+from webmap.util import raise_validation_err
 
 
 #TODO: 2 things to make this application work.
 # - stick a form in the html.
 # - import the node/relationship objects & incorporate them
 
-class ValidationError(BaseException):
-    pass
-
-def raise_validation_err(text=''):
-    raise ValidationError(text)
 
 class HandleInput:
     IP_REGEX = r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'

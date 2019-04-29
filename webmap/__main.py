@@ -1,6 +1,8 @@
 # import pyquery
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .core import HandleInput, OPERATION_MAP, ValidationError
+from .core import HandleInput, OPERATION_MAP
+from .graph.flask_interface import Dispatcher
+from .util import ValidationError
 bp = Blueprint('/webmap', __name__, 'webmap')
 
 
@@ -17,14 +19,15 @@ def webmap():
             input_type = HandleInput.url_or_ip(user_input)
             new_data = OPERATION_MAP[input_type](user_input)
             if new_data:
-                #TODO: insert it into the db.
+                #TODO: logging and checks.
+                Dispatcher.submit_data(input_type, new_data)
                 return render_template('viz.html', new_data=new_data, input_type=input_type)
         except ValidationError:
             flash('Input validation failed. Please enter a public url or ip address.')
-            return redirect(url_for('webmap.webmap'))
-        except:
-            flash('Your input was successfully validated, but something else went wrong. Please try again.')
-            return redirect(url_for('webmap.webmap'))
+            return render_template('viz.html')
+        # except:
+        #     flash('Your input was successfully validated, but something else went wrong. Please try again.')
+        #     return render_template('viz.html')
 
     return render_template('viz.html')
 
