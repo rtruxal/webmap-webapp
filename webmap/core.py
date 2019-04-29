@@ -8,6 +8,9 @@ import requests
 from webmap.local import TLD_LIST
 
 
+#TODO: 2 things to make this application work.
+# - stick a form in the html.
+# - import the node/relationship objects & incorporate them
 
 class ValidationError(BaseException):
     pass
