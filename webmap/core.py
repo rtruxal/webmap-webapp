@@ -90,7 +90,6 @@ class Resolve:
             return cls.nslookups(domains)
 
 
-
 class Bing:
     ENDPOINT = 'https://api.cognitive.microsoft.com/bing/v7.0/search?'
     HEADERS = {
