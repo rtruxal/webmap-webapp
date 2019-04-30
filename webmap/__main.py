@@ -1,7 +1,7 @@
 # import pyquery
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .core import HandleInput, OPERATION_MAP
-from .graph.flask_interface import Dispatcher
+from .graph.flask_interface_v2 import Dispatcher
 from .util import ValidationError
 bp = Blueprint('/webmap', __name__, 'webmap')
 

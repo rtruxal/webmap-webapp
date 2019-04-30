@@ -30,12 +30,12 @@
                                 }
                             },
                             relationships: {
-                                "POINTSAT": {
+                                "POINTS_AT": {
                                     caption: false,
                                     thickness: "count"
                                 }
                             },
-                            initial_cypher: "MATCH p=()-[r:POINTSAT]->() RETURN p"
+                            initial_cypher: "MATCH p=()-[r:POINTS_AT]->() RETURN p"
                         }
                         var viz = new NeoVis.default(config);
                         viz.render();
@@ -46,7 +46,7 @@
             <div id="viz"></div>
         </div>
         <div class="container" id="mainForm">
-            <form id="domainOrIPForm"action="#" method="POST" role="form" class="form-horizontal">
+            <form id="domainOrIPForm" action="#" method="POST" role="form" class="form-horizontal">
                 <div class="form-group">
                     <label for="domainOrIP">Starting Domain or IP Address</label>
                     <input name="domainOrIP" type="text" class="form-control" id="domainOrIP" aria-describedby="domainOrIPHelp" placeholder="example.com">
