@@ -9,6 +9,7 @@ When it's complete, this repo will contain an interactive webapp that maps websi
 
 ## A (very-very) Rough Example:  
 
+Image:
 <kbd>
 ![webmapexample](https://raw.githubusercontent.com/rtruxal/github-pics/master/webmap_example_rough.PNG)
 </kbd>  
